@@ -1,0 +1,54 @@
+[project]
+name = "static-site-containerizer"
+version = "0.1.0"
+description = "A CLI tool for producing a Docker container for hosting your static site"
+authors = [
+    {name = "Max Pfeiffer",email = "max@maxpfeiffer.ch"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "python-on-whales (>=0.76.1,<0.77.0)",
+    "click (>=8.1.8,<9.0.0)"
+]
+
+[project.urls]
+homepage = "https://github.com/max-pfeiffer/static-site-containerizer"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.6.10"
+pre-commit = "^4.1.0"
+pytest = "^8.3.5"
+pytest-cov = "^6.0.0"
+ruff = "^0.11.2"
+
+[tool.poetry.scripts]
+static-site-containerizer = 'static-site-containerizer'
+
+[tool.ruff.lint]
+select = [
+    "F", # Pyflakes
+    "E", # pycodestyle
+    "W", # pycodestyle
+    "I", # isort
+    "D",   # pydocstyle
+    "UP",  # pyupgrade
+    "ASYNC", # flake8-async
+    "RUF",  # Ruff-specific rules
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+
