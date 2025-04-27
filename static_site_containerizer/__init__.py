@@ -3,14 +3,16 @@
 # ruff: noqa: D301, D401
 
 from pathlib import Path
+from shutil import copytree
 from tempfile import TemporaryDirectory
 
 import click
 from python_on_whales import Builder, DockerClient
-from templates import NGINX_DOCKERFILE
+
+from static_site_containerizer.templates import NGINX_DOCKERFILE
 
 
-def validate_content_path(ctx, param: str, value: str) -> None:
+def validate_content_path(ctx, param: str, value: str) -> str:
     """Validator for content path.
 
     :param ctx:
@@ -23,6 +25,7 @@ def validate_content_path(ctx, param: str, value: str) -> None:
         raise click.BadParameter("Content path does not exist")
     if not content_path.is_dir():
         raise click.BadParameter("Content path must be a directory")
+    return value
 
 
 @click.command()
@@ -87,17 +90,20 @@ def cli(
     )
 
     with TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        content_path = tmpdir_path / "content"
+        copytree(content, content_path)
+
         dockerfile: str = NGINX_DOCKERFILE.substitute(
-            {"base_image": "nginx:latest", "content_path": content}
+            {"base_image": "nginx:latest", "content_path": "/content"}
         )
-        dockerfile_path = Path(tmpdir) / "Dockerfile"
+        dockerfile_path = tmpdir_path / "Dockerfile"
         with open(dockerfile_path, "w") as file:
             file.write(dockerfile)
 
-        tmpdir_path = Path(tmpdir)
         docker_client.buildx.build(
             context_path=tmpdir_path,
-            tags=[tag],
+            tags=tag,
             platforms=[platform],
             builder=builder,
             push=True,

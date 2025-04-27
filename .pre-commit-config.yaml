@@ -11,6 +11,6 @@ repos:
     rev: v0.4.9
     hooks:
       - id: ruff
-        args: ["--fix", "--exit-non-zero-on-fix", "--config", "pyproject.toml", "static-site-containerizer"]
+        args: ["--fix", "--exit-non-zero-on-fix", "--config", "pyproject.toml", "static_site_containerizer"]
       - id: ruff-format
-        args: ["--config", "pyproject.toml", "static-site-containerizer"]
+        args: ["--config", "pyproject.toml", "static_site_containerizer"]
