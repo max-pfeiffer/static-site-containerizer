@@ -8,6 +8,7 @@ from click.testing import CliRunner, Result
 from python_on_whales import DockerClient
 from requests import get
 from testcontainers.registry import DockerRegistryContainer
+from utils import get_platform
 
 from static_site_containerizer import cli
 from tests.constants import HTML_CONTENT, REGISTRY_PASSWORD, REGISTRY_USERNAME
@@ -47,7 +48,8 @@ def test_cli_run(
                 "--tag",
                 tag,
                 "--platform",
-                f"linux/{platform.machine().lower()}",
+                get_platform(),
+                "--push",
             ],
         )
         assert result.exit_code == 0

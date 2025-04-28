@@ -56,6 +56,11 @@ def validate_content_path(ctx, param: str, value: str) -> str:
     type=click.Choice(["linux/amd64", "linux/arm64"], case_sensitive=False),
     help="Set target platform for build",
 )
+@click.option(
+    "--push",
+    is_flag=True,
+    help="Push image to registry",
+)
 def cli(
     content: str,
     registry: str,
@@ -63,6 +68,7 @@ def cli(
     registry_password: str,
     tag: list[str],
     platform: str,
+    push: bool,
 ) -> None:
     """Static Site Containerizer CLI tool.
 
@@ -76,6 +82,7 @@ def cli(
     :param registry_password:
     :param tag:
     :param platform:
+    :param push:
     :return:
     """
     docker_client: DockerClient = DockerClient()
@@ -106,7 +113,7 @@ def cli(
             tags=tag,
             platforms=[platform],
             builder=builder,
-            push=True,
+            push=push,
         )
 
     # Cleanup

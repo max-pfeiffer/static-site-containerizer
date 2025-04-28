@@ -1,6 +1,5 @@
 """Tests for building the image."""
 
-import platform
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -9,6 +8,7 @@ from furl import furl
 from requests import Response, get
 from requests.auth import HTTPBasicAuth
 from testcontainers.registry import DockerRegistryContainer
+from utils import get_platform
 
 from static_site_containerizer import cli
 from tests.constants import HTML_CONTENT, REGISTRY_PASSWORD, REGISTRY_USERNAME
@@ -26,7 +26,6 @@ def test_cli_build(
     :return:
     """
     tag: str = f"{registry_container.get_registry()}/static-build:test"
-    print(platform.uname())
 
     with TemporaryDirectory() as tmpdir:
         tmpdir_path = Path(tmpdir)
@@ -48,7 +47,8 @@ def test_cli_build(
                 "--tag",
                 tag,
                 "--platform",
-                f"linux/{platform.machine().lower()}",
+                get_platform(),
+                "--push",
             ],
         )
         assert result.exit_code == 0
