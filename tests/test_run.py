@@ -1,5 +1,6 @@
 """Tests for running the image."""
 
+import platform
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -45,7 +46,7 @@ def test_cli_run(
                 "--tag",
                 tag,
                 "--platform",
-                "linux/arm64",
+                f"linux/{platform.machine()}",
             ],
         )
         assert result.exit_code == 0
