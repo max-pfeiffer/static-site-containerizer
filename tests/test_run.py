@@ -25,6 +25,7 @@ def test_cli_run(
     :return:
     """
     tag: str = f"{registry_container.get_registry()}/static-build:test"
+    print(platform.uname())
 
     with TemporaryDirectory() as tmpdir:
         tmpdir_path = Path(tmpdir)
