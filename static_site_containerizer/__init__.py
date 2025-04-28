@@ -61,6 +61,11 @@ def validate_content_path(ctx, param: str, value: str) -> str:
     is_flag=True,
     help="Push image to registry",
 )
+@click.option(
+    "--load",
+    is_flag=True,
+    help="Load image into Docker",
+)
 def cli(
     content: str,
     registry: str,
@@ -69,6 +74,7 @@ def cli(
     tag: list[str],
     platform: str,
     push: bool,
+    load: bool,
 ) -> None:
     """Static Site Containerizer CLI tool.
 
@@ -83,6 +89,7 @@ def cli(
     :param tag:
     :param platform:
     :param push:
+    :param load:
     :return:
     """
     docker_client: DockerClient = DockerClient()
@@ -115,6 +122,7 @@ def cli(
             platforms=[platform],
             builder=builder,
             push=push,
+            load=load,
         )
 
     # Cleanup
