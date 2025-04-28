@@ -47,7 +47,7 @@ def test_cli_build(
                 "--tag",
                 tag,
                 "--platform",
-                f"linux/{platform.machine()}",
+                f"linux/{platform.machine().lower()}",
             ],
         )
         assert result.exit_code == 0
