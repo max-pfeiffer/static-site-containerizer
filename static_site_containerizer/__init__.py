@@ -90,11 +90,12 @@ def cli(
         driver="docker-container", driver_options=dict(network="host")
     )
 
-    docker_client.login(
-        server=registry,
-        username=registry_username,
-        password=registry_password,
-    )
+    if registry_username and registry_password:
+        docker_client.login(
+            server=registry,
+            username=registry_username,
+            password=registry_password,
+        )
 
     with TemporaryDirectory() as tmpdir:
         tmpdir_path = Path(tmpdir)

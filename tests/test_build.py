@@ -8,10 +8,10 @@ from furl import furl
 from requests import Response, get
 from requests.auth import HTTPBasicAuth
 from testcontainers.registry import DockerRegistryContainer
-from utils import get_platform
 
 from static_site_containerizer import cli
 from tests.constants import HTML_CONTENT, REGISTRY_PASSWORD, REGISTRY_USERNAME
+from tests.utils import get_platform
 
 BASIC_AUTH: HTTPBasicAuth = HTTPBasicAuth(REGISTRY_USERNAME, REGISTRY_PASSWORD)
 

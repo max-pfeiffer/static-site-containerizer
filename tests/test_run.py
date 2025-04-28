@@ -8,10 +8,10 @@ from click.testing import CliRunner, Result
 from python_on_whales import DockerClient
 from requests import get
 from testcontainers.registry import DockerRegistryContainer
-from utils import get_platform
 
 from static_site_containerizer import cli
 from tests.constants import HTML_CONTENT, REGISTRY_PASSWORD, REGISTRY_USERNAME
+from tests.utils import get_platform
 
 
 def test_cli_run(
