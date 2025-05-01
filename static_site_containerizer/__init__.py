@@ -31,38 +31,50 @@ def validate_content_path(ctx, param: str, value: str) -> str:
 @click.command()
 @click.option(
     "--content",
+    envvar="STATIC_SITE_CONTAINERIZER_CONTENT",
     required=True,
     callback=validate_content_path,
     help="Directory containing content to serve with web server",
 )
-@click.option("--registry", required=True, default="docker.io", help="Docker registry")
+@click.option(
+    "--registry",
+    envvar="STATIC_SITE_CONTAINERIZER_REGISTRY",
+    default="docker.io",
+    help="Docker registry",
+)
 @click.option(
     "--registry-username",
-    help="Docker registry username",
+    envvar="STATIC_SITE_CONTAINERIZER_REGISTRY_USERNAME",
+    help="Docker registry username, default=docker.io",
 )
 @click.option(
     "--registry-password",
+    envvar="STATIC_SITE_CONTAINERIZER_REGISTRY_PASSWORD",
     help="Docker registry password",
 )
 @click.option(
     "--tag",
+    envvar="STATIC_SITE_CONTAINERIZER_TAG",
     multiple=True,
     required=True,
     help='Name and optionally a tag (format: "name:tag")',
 )
 @click.option(
     "--platform",
-    default="linux/amd64",
-    type=click.Choice(["linux/amd64", "linux/arm64"], case_sensitive=False),
+    envvar="STATIC_SITE_CONTAINERIZER_PLATFORM",
+    default=["linux/amd64"],
+    multiple=True,
     help="Set target platform for build",
 )
 @click.option(
     "--push",
+    envvar="STATIC_SITE_CONTAINERIZER_PUSH",
     is_flag=True,
     help="Push image to registry",
 )
 @click.option(
     "--load",
+    envvar="STATIC_SITE_CONTAINERIZER_LOAD",
     is_flag=True,
     help="Load image into Docker",
 )
@@ -72,7 +84,7 @@ def cli(
     registry_username: str,
     registry_password: str,
     tag: list[str],
-    platform: str,
+    platform: [str],
     push: bool,
     load: bool,
 ) -> None:
@@ -119,7 +131,7 @@ def cli(
         docker_client.buildx.build(
             context_path=tmpdir_path,
             tags=tag,
-            platforms=[platform],
+            platforms=platform,
             builder=builder,
             push=push,
             load=load,
