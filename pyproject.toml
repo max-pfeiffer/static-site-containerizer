@@ -1,7 +1,7 @@
 [project]
 name = "static-site-containerizer"
-version = "0.1.0"
-description = "A CLI tool for producing a Docker container for hosting your static site"
+version = "0.2.0"
+description = "CLI tool for generating a Docker container to host your static site"
 authors = [
     {name = "Max Pfeiffer",email = "max@maxpfeiffer.ch"}
 ]
@@ -28,7 +28,7 @@ coverage = "7.8.0"
 pre-commit = "4.2.0"
 pytest = "8.3.5"
 pytest-cov = "6.1.1"
-ruff = "0.11.7"
+ruff = "0.11.8"
 testcontainers = "4.10.0"
 furl = "2.1.4"
 
