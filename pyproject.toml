@@ -1,6 +1,6 @@
 [project]
 name = "static-site-containerizer"
-version = "0.2.0"
+version = "0.2.1"
 description = "CLI tool for generating a Docker container to host your static site"
 authors = [
     {name = "Max Pfeiffer",email = "max@maxpfeiffer.ch"}

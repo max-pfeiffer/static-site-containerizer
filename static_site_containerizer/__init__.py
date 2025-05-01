@@ -40,12 +40,12 @@ def validate_content_path(ctx, param: str, value: str) -> str:
     "--registry",
     envvar="STATIC_SITE_CONTAINERIZER_REGISTRY",
     default="docker.io",
-    help="Docker registry",
+    help="Docker registry, default=docker.io",
 )
 @click.option(
     "--registry-username",
     envvar="STATIC_SITE_CONTAINERIZER_REGISTRY_USERNAME",
-    help="Docker registry username, default=docker.io",
+    help="Docker registry username",
 )
 @click.option(
     "--registry-password",
