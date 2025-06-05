@@ -2,6 +2,8 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![codecov](https://codecov.io/gh/max-pfeiffer/static-site-containerizer/graph/badge.svg?token=DEbs6372IY)](https://codecov.io/gh/max-pfeiffer/static-site-containerizer)
 ![pipeline workflow](https://github.com/max-pfeiffer/static-site-containerizer/actions/workflows/pipeline.yml/badge.svg)
+![PyPI - Version](https://img.shields.io/pypi/v/static-site-containerizer)
+
 # Static Site Containerizer
 
 CLI tool for generating a Docker container to host your static site. static-site-containerizer builds a Docker image
